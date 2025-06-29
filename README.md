@@ -1,5 +1,7 @@
 # TRACK4FOCUS
 
+Target-Responsive Actuating using Calibrated Kinematics for Face-Oriented Controlled Unified System
+
 A face-tracking 4-axis robotic arm control system with a modern web interface.
 
 ## Features
