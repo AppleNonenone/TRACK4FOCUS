@@ -1,0 +1,17 @@
+{
+  "name": "TRACK4FOCUS",
+  "short_name": "Track4Focus",
+  "description": "Target-Responsive Actuating using Calibrated Kinematics for Face-Oriented Controlled Unified System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23667eea'/%3E%3Ctext x='50' y='60' text-anchor='middle' fill='white' font-size='30'%3E🤖%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+  "orientation": "landscape-primary"
+}
