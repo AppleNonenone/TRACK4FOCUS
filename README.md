@@ -41,31 +41,6 @@ track4focus/
 - numpy
 - (Optional) pyserial (for Arduino)
 
-## Quick Start
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/track4focus.git
-   cd track4focus
-   ```
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   # or
-   pip install flask opencv-python numpy pyserial
-   ```
-3. **Connect your Arduino and camera**
-4. **Run the server**
-   ```bash
-   python app.py
-   ```
-5. **Open your browser**
-   - Go to `http://localhost:65535` (or the port shown in the terminal)
-
-## Notes
-- Camera and Arduino port can be selected in the web UI.
-- All tracking parameters are adjustable in real time.
-- For troubleshooting, see INSTALLATION.md.
-
 ## Easy Install (Recommended)
 
 ### Windows
@@ -84,6 +59,11 @@ track4focus/
 1. Run: `python install_and_run.py`
 2. The script will check Python, install all dependencies, and start the server automatically.
 3. Your browser will open to: http://localhost:65535
+
+## Notes
+- Camera and Arduino port can be selected in the web UI.
+- All tracking parameters are adjustable in real time.
+- For troubleshooting, see INSTALLATION.md.
 
 ---
 MIT License
