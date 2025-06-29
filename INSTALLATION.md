@@ -11,26 +11,25 @@
 - Arduino board (Uno, Nano, etc.)
 - 4 servo motors (base, shoulder, elbow, wrist)
 
-## 2. Setup
+## Easy Install (Recommended)
 
-### Clone the repository
-```bash
-git clone https://github.com/yourusername/track4focus.git
-cd track4focus
-```
+### Windows
+1. Double-click `launch_trackfocus.bat`
+2. The launcher will check Python, install all dependencies, and start the server automatically.
+3. Your browser will open to: http://localhost:65535
 
-### Install dependencies
-```bash
-pip install -r requirements.txt
-# or
-pip install flask opencv-python numpy pyserial
-```
+### Mac/Linux
+1. Open a terminal in the project folder
+2. Run: `chmod +x launch_trackfocus.sh`
+3. Run: `./launch_trackfocus.sh`
+4. The launcher will check Python, install all dependencies, and start the server automatically.
+5. Your browser will open to: http://localhost:65535
 
-### (Optional) Create a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+### Universal (Any OS)
+1. Run: `python install_and_run.py`
+2. The script will check Python, install all dependencies, and start the server automatically.
+3. Your browser will open to: http://localhost:65535
+
 
 ## 3. Hardware Connection
 - Connect your USB webcam to the computer.
@@ -78,25 +77,6 @@ python app.py
 
 ## 8. Uninstallation
 - Simply delete the project folder. No system-wide changes are made.
-
-## Easy Install (Recommended)
-
-### Windows
-1. Double-click `launch_trackfocus.bat`
-2. The launcher will check Python, install all dependencies, and start the server automatically.
-3. Your browser will open to: http://localhost:65535
-
-### Mac/Linux
-1. Open a terminal in the project folder
-2. Run: `chmod +x launch_trackfocus.sh`
-3. Run: `./launch_trackfocus.sh`
-4. The launcher will check Python, install all dependencies, and start the server automatically.
-5. Your browser will open to: http://localhost:65535
-
-### Universal (Any OS)
-1. Run: `python install_and_run.py`
-2. The script will check Python, install all dependencies, and start the server automatically.
-3. Your browser will open to: http://localhost:65535
 
 ---
 For more details, see README.md or open an issue on GitHub.
