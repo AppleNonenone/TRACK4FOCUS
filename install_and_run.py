@@ -82,7 +82,7 @@ def main():
     browser_thread = threading.Thread(target=open_browser)
     browser_thread.daemon = True
     browser_thread.start()
-    
+
     # Import and run the app (안전하게)
     try:
         import sys
