@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRACK4FOCUS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#23263a">
+</head>
+<body class="dark-mode">
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="header-title">TRACK 4 FOCUS</h1>
+            <p class="header-desc">Target-Responsive Actuating using Calibrated Kinematics for Face-Oriented Controlled Unified System</p>
+        </div>
+    </header>
+    <div class="layout">
+        <div class="sidebar menu-scroll">
+            <!-- 메뉴: 기존 요소 유지, 텍스트/구성 리디자인 -->
+            <div class="menu-section">
+                <h2>Control</h2>
+                <button id="startBtn" class="btn btn-start">Start Tracking</button>
+                <button id="stopBtn" class="btn btn-stop" disabled>Stop Tracking</button>
+            </div>
+            <div class="menu-section">
+                <h2>Status</h2>
+                <div class="status-card">
+                    <div class="status-row"><span>Status</span><span class="status-value" id="systemStatus">Disconnected</span></div>
+                    <div class="status-row"><span>Port</span><span class="status-value" id="portStatus">-</span></div>
+                    <div class="status-row"><span>Camera</span><span class="status-value" id="cameraStatus">-</span></div>
+                    <div class="status-row"><span>Preview</span><span class="status-value" id="previewStatus">Inactive</span></div>
+                    <div class="status-row"><span>Tracking</span><span class="status-value" id="trackingStatus">Inactive</span></div>
+                    <div class="status-row"><span>Face Detected</span><span class="status-value" id="faceStatus">No</span></div>
+                    <div class="status-row"><span>Laser</span><span class="status-value" id="laserStatus">OFF</span></div>
+                </div>
+                <div class="servo-card">
+                    <div class="status-row"><span>Base</span><span class="servo-value" id="baseAngle">90°</span></div>
+                    <div class="status-row"><span>Shoulder</span><span class="servo-value" id="shoulderAngle">90°</span></div>
+                    <div class="status-row"><span>Elbow</span><span class="servo-value" id="elbowAngle">90°</span></div>
+                    <div class="status-row"><span>Wrist</span><span class="servo-value" id="wristAngle">90°</span></div>
+                    <div class="status-row"><span>Laser</span><span class="servo-value" id="servoLaser">0</span></div>
+                </div>
+            </div>
+            <div class="menu-section">
+                <h2>Command Log</h2>
+                <div id="commandLogTerminal" class="command-log-terminal"></div>
+            </div>
+            <div class="menu-section">
+                <h2>Tracking Parameters</h2>
+                <div class="parameter-group">
+                    <label for="movement-sensitivity">Movement Sensitivity</label>
+                    <input type="range" id="movement-sensitivity" min="0.5" max="3.0" value="1.0" step="0.1">
+                    <span id="sensitivity-value">1.0</span>
+                </div>
+                <div class="parameter-group">
+                    <label for="smoothing-factor">Smoothing Factor</label>
+                    <input type="range" id="smoothing-factor" min="0.1" max="1.0" value="0.3" step="0.05">
+                    <span id="smoothing-value">0.3</span>
+                </div>
+                <div class="parameter-group">
+                    <label for="thresholdInput">Center Threshold</label>
+                    <input type="number" id="thresholdInput" value="20" min="5" max="100" step="5">
+                </div>
+                <div class="parameter-group">
+                    <label for="l1Input">Link 1 Length (L1)</label>
+                    <input type="number" id="l1Input" value="15" min="1" max="50" step="0.1">
+                </div>
+                <div class="parameter-group">
+                    <label for="l2Input">Link 2 Length (L2)</label>
+                    <input type="number" id="l2Input" value="15" min="1" max="50" step="0.1">
+                </div>
+                <button id="updateParamsBtn" class="btn btn-secondary">Update Parameters</button>
+            </div>
+            <div class="menu-section">
+                <h2>Laser Control</h2>
+                <div class="parameter-group">
+                    <label for="laserAutoToggle">Laser Auto Control</label>
+                    <input type="checkbox" id="laserAutoToggle" checked>
+                    <span id="laserAutoToggleLabel">ON</span>
+                </div>
+            </div>
+            <div class="menu-section">
+                <h2>Camera Settings</h2>
+                <div class="parameter-group">
+                    <label for="cameraSelect">Select Camera</label>
+                    <select id="cameraSelect"><option value="0">Camera 0</option></select>
+                </div>
+                <div class="control-buttons">
+                    <button id="previewBtn" class="btn btn-secondary">Start Preview</button>
+                    <button id="stopPreviewBtn" class="btn btn-stop" disabled>Stop Preview</button>
+                </div>
+            </div>
+            <div class="menu-section">
+                <h2>Arduino Port</h2>
+                <div class="parameter-group">
+                    <label for="arduinoPortSelect">Select Arduino Port</label>
+                    <div style="display: flex; gap: 5px;">
+                        <select id="arduinoPortSelect" style="flex: 1;"></select>
+                        <button id="refreshPortsBtn" class="btn btn-secondary" title="Refresh port list">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <button id="setArduinoPortBtn" class="btn btn-secondary">Connect</button>
+                </div>
+            </div>
+        </div>
+        <div class="resizer-bar" id="resizerBar"></div>
+        <div class="main-feed">
+            <div class="video-section">
+                <div class="camera-feed-header">Camera Feed</div>
+                <div class="video-container">
+                    <img id="videoFeed" src="/video_feed" alt="Camera feed will appear here when tracking starts">
+                    <div class="video-overlay"><div class="crosshair"></div></div>
+                    <div id="videoFeedOverlay" class="video-feed-overlay" style="display:none;"></div>
+                </div>
+                <div class="video-info">
+                    <p class="video-info-text">Blue crosshair: camera center</p>
+                    <p class="video-info-text">Green rectangle: detected face</p>
+                    <p class="video-info-text">Red dot: face center</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="errorContainer" class="error-container" style="display:none;">
+        <span id="errorText" class="error-message"></span>
+        <button id="closeError" class="close-btn" title="닫기">&times;</button>
+    </div>
+    <div id="successContainer" class="success-container" style="display:none;">
+        <span id="successText" class="success-message"></span>
+        <button id="closeSuccess" class="close-btn" title="닫기">&times;</button>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
